@@ -1,0 +1,596 @@
+
+----------------
+> Pulling images
+time="2024-01-19T21:32:08+08:00" level=warning msg="The \"GITHUB_WORKSPACE\" variable is not set. Defaulting to a blank string."
+ geth Skipped - Image is already being pulled by geth-genesis 
+ create-beacon-chain-genesis Pulling 
+ geth-genesis Pulling 
+ beacon Pulling 
+ postgres Pulling 
+ validator Pulling 
+ create-beacon-chain-genesis Pulled 
+ validator Pulled 
+ beacon Pulled 
+ geth-genesis Pulled 
+ postgres Pulled 
+✔ Pulling images done (2128ms)
+
+----------------------
+> Checking environment
+✔ Checking environment done (62ms)
+
+--------------------
+> Checking git hooks
+✔ Checking git hooks done (2ms)
+
+-----------------------
+> Setting up containers
+time="2024-01-19T21:32:10+08:00" level=warning msg="The \"GITHUB_WORKSPACE\" variable is not set. Defaulting to a blank string."
+ Container zksync-era-geth-1  Stopping
+ Container zksync-era-postgres-1  Stopping
+ Container zksync-era-validator-1  Stopping
+ Container zksync-era-validator-1  Stopped
+ Container zksync-era-validator-1  Removing
+ Container zksync-era-validator-1  Removed
+ Container zksync-era-postgres-1  Stopped
+ Container zksync-era-postgres-1  Removing
+ Container zksync-era-postgres-1  Removed
+ Container zksync-era-geth-1  Stopped
+ Container zksync-era-geth-1  Removing
+ Container zksync-era-geth-1  Removed
+ Container zksync-era-beacon-1  Stopping
+ Container zksync-era-geth-genesis-1  Stopping
+ Container zksync-era-geth-genesis-1  Stopped
+ Container zksync-era-geth-genesis-1  Removing
+ Container zksync-era-geth-genesis-1  Removed
+ Container zksync-era-beacon-1  Stopped
+ Container zksync-era-beacon-1  Removing
+ Container zksync-era-beacon-1  Removed
+ Container zksync-era-create-beacon-chain-genesis-1  Stopping
+ Container zksync-era-create-beacon-chain-genesis-1  Stopped
+ Container zksync-era-create-beacon-chain-genesis-1  Removing
+ Container zksync-era-create-beacon-chain-genesis-1  Removed
+ Network zksync-era_default  Removing
+ Network zksync-era_default  Removed
+time="2024-01-19T21:32:11+08:00" level=warning msg="The \"GITHUB_WORKSPACE\" variable is not set. Defaulting to a blank string."
+No stopped containers
+time="2024-01-19T21:32:13+08:00" level=warning msg="The \"GITHUB_WORKSPACE\" variable is not set. Defaulting to a blank string."
+ Network zksync-era_default  Creating
+ Network zksync-era_default  Created
+ Container zksync-era-create-beacon-chain-genesis-1  Creating
+ Container zksync-era-postgres-1  Creating
+ Container zksync-era-postgres-1  Created
+ Container zksync-era-create-beacon-chain-genesis-1  Created
+ Container zksync-era-beacon-1  Creating
+ Container zksync-era-geth-genesis-1  Creating
+ Container zksync-era-geth-genesis-1  Created
+ Container zksync-era-beacon-1  Created
+ Container zksync-era-validator-1  Creating
+ Container zksync-era-geth-1  Creating
+ Container zksync-era-validator-1  Created
+ Container zksync-era-geth-1  Created
+ Container zksync-era-create-beacon-chain-genesis-1  Starting
+ Container zksync-era-postgres-1  Starting
+ Container zksync-era-postgres-1  Started
+ Container zksync-era-create-beacon-chain-genesis-1  Started
+ Container zksync-era-create-beacon-chain-genesis-1  Waiting
+ Container zksync-era-create-beacon-chain-genesis-1  Waiting
+ Container zksync-era-create-beacon-chain-genesis-1  Exited
+ Container zksync-era-geth-genesis-1  Starting
+ Container zksync-era-create-beacon-chain-genesis-1  Exited
+ Container zksync-era-beacon-1  Starting
+ Container zksync-era-geth-genesis-1  Started
+ Container zksync-era-beacon-1  Started
+ Container zksync-era-validator-1  Starting
+ Container zksync-era-geth-genesis-1  Waiting
+ Container zksync-era-validator-1  Started
+ Container zksync-era-geth-genesis-1  Exited
+ Container zksync-era-geth-1  Starting
+ Container zksync-era-geth-1  Started
+✔ Setting up containers done (5222ms)
+
+-------------------------------------
+> Checkout system-contracts submodule
+✔ Checkout system-contracts submodule done (89ms)
+
+-----------------------
+> Compiling JS packages
+yarn install v1.22.19
+[1/4] Resolving packages...
+success Already up-to-date.
+Done in 0.75s.
+✔ Compiling JS packages done (1085ms)
+
+----------------------
+> Compile l2 contracts
+yarn workspace v1.22.19
+yarn run v1.22.19
+$ hardhat compile
+Solidity 0.8.20 is not fully supported yet. You can still use Hardhat, but some features, like stack traces, might not work correctly.
+
+Learn more at https://hardhat.org/hardhat-runner/docs/reference/solidity-support
+
+The zksolc compiler version in your Hardhat config file (1.3.16) is not the latest. We recommend using the latest version 1.3.22.
+Nothing to compile
+Done in 0.74s.
+Done in 1.20s.
+yarn workspace v1.22.19
+yarn run v1.22.19
+$ yarn build:system-contracts && yarn build:bootloader
+$ yarn preprocess:system-contracts && hardhat compile && yarn compile-yul compile-precompiles
+$ rm -rf ./contracts-preprocessed && ts-node scripts/preprocess-system-contracts.ts
+System Contracts preprocessing done!
+The zksolc compiler version in your Hardhat config file (1.3.18) is not the latest. We recommend using the latest version 1.3.22.
+Nothing to compile
+Creating Typechain artifacts in directory typechain for target ethers-v5
+Successfully generated Typechain artifacts!
+$ ts-node scripts/compile-yul.ts compile-precompiles
+Yarn project directory: /mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts
+Compiler run successful. Artifact(s) can be found in directory "/mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts/scripts/../contracts-preprocessed/artifacts".
+Yarn project directory: /mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts
+Compiler run successful. Artifact(s) can be found in directory "/mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts/scripts/../contracts-preprocessed/precompiles/artifacts".
+Compiler run successful. Artifact(s) can be found in directory "/mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts/scripts/../contracts-preprocessed/precompiles/artifacts".
+Compiler run successful. Artifact(s) can be found in directory "/mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts/scripts/../contracts-preprocessed/precompiles/artifacts".
+Compiler run successful. Artifact(s) can be found in directory "/mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts/scripts/../contracts-preprocessed/precompiles/artifacts".
+Compiler run successful. Artifact(s) can be found in directory "/mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts/scripts/../contracts-preprocessed/precompiles/artifacts".
+$ yarn preprocess:bootloader && yarn compile-yul compile-bootloader
+$ rm -rf ./bootloader/build && yarn ts-node scripts/preprocess-bootloader.ts
+$ /mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts/node_modules/.bin/ts-node scripts/preprocess-bootloader.ts
+Preprocessing production bootloader
+Preprocessing playground block bootloader
+Preprocessing gas test bootloader
+Preprocessing fee estimation bootloader
+Preprocessing bootloader tests
+Found tests: TEST_safeSub,TEST_safeDiv,TEST_safeDivAssert,TEST_asserts,TEST_safeMul,TEST_safeMulAssert,TEST_strLen,TEST_simple_transaction
+Bootloader preprocessing done!
+$ ts-node scripts/compile-yul.ts compile-bootloader
+Yarn project directory: /mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts
+Compiler run successful. Artifact(s) can be found in directory "/mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts/scripts/../bootloader/build/artifacts".
+Compiler run successful. Artifact(s) can be found in directory "/mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts/scripts/../bootloader/build/artifacts".
+Compiler run successful. Artifact(s) can be found in directory "/mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts/scripts/../bootloader/build/artifacts".
+Compiler run successful. Artifact(s) can be found in directory "/mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts/scripts/../bootloader/build/artifacts".
+Compiler run successful. Artifact(s) can be found in directory "/mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts/scripts/../bootloader/build/artifacts".
+Yarn project directory: /mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts
+Compiler run successful. Artifact(s) can be found in directory "/mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts/scripts/../bootloader/tests/artifacts".
+Compiler run successful. Artifact(s) can be found in directory "/mnt/md0/work-morty/zksync/zksync-era/contracts/system-contracts/scripts/../bootloader/tests/artifacts".
+Done in 25.39s.
+Done in 25.82s.
+yarn workspace v1.22.19
+yarn run v1.22.19
+$ hardhat compile
+Nothing to compile
+Done in 0.74s.
+Done in 1.18s.
+yarn run v1.22.19
+$ yarn workspace ts-integration build
+$ hardhat compile
+Solidity 0.8.23 is not fully supported yet. You can still use Hardhat, but some features, like stack traces, might not work correctly.
+
+Learn more at https://hardhat.org/hardhat-runner/docs/reference/solidity-support
+
+The zksolc compiler version in your Hardhat config file (1.3.19) is not the latest. We recommend using the latest version 1.3.22.
+The zkvyper compiler version in your Hardhat config file (1.3.13) is not the latest. We recommend using the latest version 1.3.16.
+Compiling contracts for zkSync Era with zkvyper v1.3.13 and vyper v0.3.10
+Successfully compiled 2 Vyper files
+Done in 3.66s.
+yarn run v1.22.19
+$ yarn workspace ts-integration build-yul
+$ hardhat run scripts/compile-yul.ts
+The zksolc compiler version in your Hardhat config file (1.3.19) is not the latest. We recommend using the latest version 1.3.22.
+The zkvyper compiler version in your Hardhat config file (1.3.13) is not the latest. We recommend using the latest version 1.3.16.
+Compiling contracts for zkSync Era with zkvyper v1.3.13 and vyper v0.3.10
+Compiler run successful. Artifact(s) can be found in directory "/mnt/md0/work-morty/zksync/zksync-era/core/tests/ts-integration/contracts/yul/artifacts/Empty.yul".
+Compiler run successful. Artifact(s) can be found in directory "/mnt/md0/work-morty/zksync/zksync-era/core/tests/ts-integration/contracts/zkasm/artifacts/deep_stak.zkasm".
+Done in 4.41s.
+✔ Compile l2 contracts done (38122ms)
+
+------------------
+> Drop postgres db
+Dropping DB...
+✔ Drop postgres db done (78ms)
+Using localhost database:
+DATABASE_URL = postgres://postgres@localhost/zksync_local
+
+-------------------
+> Setup postgres db
+Applied 20211026134308/migrate init (33.971823ms)
+Applied 20220120160234/migrate add tx execution info (568.341µs)
+Applied 20220127113853/migrate tx received at index (1.267305ms)
+Applied 20220204131627/migrate add merkle root (1.06866ms)
+Applied 20220204223302/migrate transactions new mempool (1.870233ms)
+Applied 20220304160112/migrate drop events indices (2.052265ms)
+Applied 20220308124416/migrate add l2 to l1 communication (1.404431ms)
+Applied 20220315095541/migrate txs priority id (1.366667ms)
+Applied 20220315144416/migrate remove tx valid in (807.915µs)
+Applied 20220321131756/migrate change events loc index (1.520516ms)
+Applied 20220325153146/migrate remove events id (2.267402ms)
+Applied 20220401114554/migrate storage tables migration (2.042887ms)
+Applied 20220404102332/migrate eth tx index (1.431583ms)
+Applied 20220406085905/migrate eth tx has failed status (1.262235ms)
+Applied 20220412142956/migrate add block hash index (909.191µs)
+Applied 20220421125432/migrate drop to porter authorized (1.557507ms)
+Applied 20220504154136/migrate remove nonce gaps (649.768µs)
+Applied 20220509214600/migrate using base fee and priority fee (1.096444ms)
+Applied 20220517135000/migrate add contract address column (1.299327ms)
+Applied 20220519101248/migrate btree events indices (3.110565ms)
+Applied 20220519103453/migrate in mempool (1.219823ms)
+Applied 20220519150925/migrate eth sender refactor (2.55551ms)
+Applied 20220519201431/migrate change block commitment model (572.379µs)
+Applied 20220527103820/migrate block number tx index indices (1.886454ms)
+Applied 20220601105448/migrate contract verification (4.213001ms)
+Applied 20220610121550/migrate add predicted gas columns (1.973121ms)
+Applied 20220611134715/migrate token-bridging (1.924528ms)
+Applied 20220621103309/migrate contract verification compilation errors (572.319µs)
+Applied 20220630134601/migrate track l1 block number for priority ops (614.641µs)
+Applied 20220704121755/migrate witness inputs (2.34364ms)
+Applied 20220705133822/migrate add value column (804.048µs)
+Applied 20220707151034/migrate storage logs dedup (3.123951ms)
+Applied 20220708093726/migrate make-type-not-null (628.507µs)
+Applied 20220711132020/migrate save initial bootloader content (687.832µs)
+Applied 20220712073626/migrate add columns to witness inputs (622.796µs)
+Applied 20220712093408/migrate add used contracts to blocks (809.257µs)
+Applied 20220713090226/migrate remove-priority-mode (665.379µs)
+Applied 20220729125750/migrate add-contract-verification-started-at (581.676µs)
+Applied 20220801131413/migrate add paymaster data (811.311µs)
+Applied 20220807172230/migrate block metadata (1.983091ms)
+Applied 20220815130828/migrate support eip1559 (1.445921ms)
+Applied 20220816141002/migrate add prover jobs (3.622948ms)
+Applied 20220826100615/migrate save block ergs per pubdata limit (1.114449ms)
+Applied 20220827110416/migrate miniblocks (11.323945ms)
+Applied 20220902115015/migrate add-solc-version-to-contract-verifier (593.259µs)
+Applied 20220902124458/migrate add time taken column in witness inputs (554.745µs)
+Applied 20220902190932/migrate add processing started at to witness inputs.sql (495.96µs)
+Applied 20220904161256/migrate add time taken column in prover jobs (541.769µs)
+Applied 20220908094615/migrate add error field to queues (543.092µs)
+Applied 20220908103955/migrate verifier-compilers-versions (1.685164ms)
+Applied 20220908145203/migrate remove-redundant-fields (577.769µs)
+Applied 20220914102048/migrate unique-blocknumber-for-witnesses (815.88µs)
+Applied 20220915125943/migrate l1 batch tx number (535.407µs)
+Applied 20220930085018/migrate add proof aggregations (4.804747ms)
+Applied 20221001090302/migrate add proof result (656.071µs)
+Applied 20221001131821/migrate add static artifact storage (2.018971ms)
+Applied 20221002190817/migrate add circuit id to proofs (750.754µs)
+Applied 20221003090515/migrate add-commitment-hash-fields (1.020125ms)
+Applied 20221004114549/migrate add scheduler jobs table (3.208836ms)
+Applied 20221007085909/migrate add-attempts-for-jobs (2.251782ms)
+Applied 20221010145858/migrate remove ergs per code decommittment word (929.159µs)
+Applied 20221013104735/migrate add aggregation result coords to scheduler jobs (848.664µs)
+Applied 20221018114513/migrate verification-requests-panic-messages (889.352µs)
+Applied 20221019112725/migrate l2 to l1 logs table (2.787109ms)
+Applied 20221031110209/migrate miniblocks-hash-index (885.135µs)
+Applied 20221103104136/migrate add-signed-raw-tx (891.377µs)
+Applied 20221108190838/migrate set-primary-keys (2.683508ms)
+Applied 20221109094807/migrate block-skip-proof (815.65µs)
+Applied 20221110094012/migrate add merkel tree paths blob url in witness inputs (644.298µs)
+Applied 20221110094252/migrate add basic circuits and inputs blob url in leaf aggregation witness jobs (716.147µs)
+Applied 20221110094339/migrate add leaf layer subques and aggregation output blob url in node aggregation witness jobs (751.084µs)
+Applied 20221110094730/migrate add scheduler witness and final node aggregations blob url in scheduler witness jobs (710.526µs)
+Applied 20221110095052/migrate add circuit input blob url column in prover jobs (677.021µs)
+Applied 20221202102801/migrate events-tx-initiator-address (1.2032ms)
+Applied 20221215085757/migrate add composite index to prover jobs (1.128435ms)
+Applied 20221215094205/migrate prover-job-identity (724.343µs)
+Applied 20221222120017/migrate add index to reduce load in prover jobs (1.2855ms)
+Applied 20221227165603/migrate fee model (1.654805ms)
+Applied 20221229154428/migrate add-bootloader-aa-code-hash (733.28µs)
+Applied 20230104104142/migrate add gpu prover queue table (2.221723ms)
+Applied 20230105122559/migrate protective reads (2.945074ms)
+Applied 20230105160906/migrate remove contracts null restriction (766.175µs)
+Applied 20230109123145/migrate add blob cleanup status column to tables with blobs (1.456471ms)
+Applied 20230109123703/migrate add blob cleanup status index for tables with blobs (3.207674ms)
+Applied 20230111122457/migrate refactor contracts verification info (1.579129ms)
+Applied 20230112111801/migrate initial writes (3.057312ms)
+Applied 20230113113154/migrate add storage logs index (1.179165ms)
+Applied 20230117123627/migrate add queue capacity and free slots in gpu prover queue (698.313µs)
+Applied 20230119123216/migrate drop null constraint gpu prover queue (642.184µs)
+Applied 20230119182427/migrate l1 refunds (926.976µs)
+Applied 20230202142858/migrate ergs to gas (1.354744ms)
+Applied 20230203102247/migrate add specialized prover group id in gpu prover queue (632.345µs)
+Applied 20230215114053/migrate verification-request-is-system (793.807µs)
+Applied 20230221112209/migrate add region column in gpu prover queue (722.559µs)
+Applied 20230221113734/migrate adjust primary key in gpu prover queue (1.456571ms)
+Applied 20230228095320/migrate add circuit type status index in prover jobs (1.170367ms)
+Applied 20230320195412/migrate calls (2.24047ms)
+Applied 20230323110438/migrate add zone num gpu column in gpu prover queue (941.774µs)
+Applied 20230323111121/migrate add zone in pk of gpu prover queue (1.185276ms)
+Applied 20230327173626/migrate eth-txs-history-tx-hash-index (1.581664ms)
+Applied 20230328110644/migrate drop and recreate gpu prover queue (5.451479ms)
+Applied 20230420104112/migrate add events address-block-index index (1.315108ms)
+Applied 20230424115322/migrate drop stoarge logs dedup table (2.328851ms)
+Applied 20230427083744/migrate protocol versions table (6.662415ms)
+Applied 20230525091429/migrate events transfer indices for explorer (3.163337ms)
+Applied 20230530091756/migrate add system version in witness and prover related tables (2.833127ms)
+Applied 20230607131138/migrate create witness inputs fri table (3.292747ms)
+Applied 20230607132716/migrate create prover jobs fri table (3.598531ms)
+Applied 20230609133146/migrate drop contract sources (1.198261ms)
+Applied 20230612111554/migrate drop unnecessary foreign keys post prover migration (1.047879ms)
+Applied 20230612173621/migrate fix-storage-logs-contract-address-tx-hash-idx (1.534722ms)
+Applied 20230614081056/migrate add missing indices (10.401608ms)
+Applied 20230615142357/migrate drop l1 batches constraint from witness inputs fri (810.029µs)
+Applied 20230616131252/migrate add leaf aggregation witness jobs fri (2.399257ms)
+Applied 20230619113310/migrate add protocol version index in prover jobs (10.525287ms)
+Applied 20230619132736/migrate add node aggregation witness jobs fri table (3.399325ms)
+Applied 20230622100931/migrate add number of basic circuits in leaf agg jobs fri table (444.521µs)
+Applied 20230622142030/migrate add depth in prover jobs fri table (596.155µs)
+Applied 20230626060855/migrate vyper verification (4.204424ms)
+Applied 20230626103610/migrate create unique index for leaf node prover fri tables (2.350502ms)
+Applied 20230627123428/migrate add scheduler dependency tracker table (12.566131ms)
+Applied 20230627131556/migrate create scheduler witness jobs fri table (1.49722ms)
+Applied 20230628091834/migrate add attempts in scheduler witness jobs fri table (454.32µs)
+Applied 20230628113801/migrate add is node final proof column in prover jobs fri table (484.879µs)
+Applied 20230628120840/migrate add number of dependency column in node aggregations fri table (392.01µs)
+Applied 20230628184614/migrate update scheduler dependency tracker fri to remove autoincrement sequence (7.272357ms)
+Applied 20230630083308/migrate add indices for new prover related tables (5.156629ms)
+Applied 20230630095614/migrate add proof blob url drop proof from prover jobs fri (466.303µs)
+Applied 20230706080351/migrate add-enumeration-indices (715.896µs)
+Applied 20230717182755/migrate pending tx index (1.193942ms)
+Applied 20230807152355/migrate virtual blocks (622.586µs)
+Applied 20230810090211/migrate add proof generation details table (2.861894ms)
+Applied 20230816123036/migrate create table gpu prover queue fri (2.396612ms)
+Applied 20230817101508/migrate add index for gpu prover queue fri (1.222939ms)
+Applied 20230822133227/migrate prover protocol versions (8.672378ms)
+Applied 20230824105133/migrate drop protocol versions tx fk (530.588µs)
+Applied 20230825103341/migrate fix prover jobs protocol version index (10.606325ms)
+Applied 20230831110448/migrate add prover fri protocol versions table (2.837125ms)
+Applied 20230906070159/migrate miniblocks pending batch index (681.12µs)
+Applied 20230906090541/migrate add proof compression table (1.76569ms)
+Applied 20230911090548/migrate add index for proof compressor table (1.072868ms)
+Applied 20230913092159/migrate update prover fri index to include protocol version (2.857826ms)
+Applied 20230914150834/migrate enum-indices-not-null (418.601µs)
+Applied 20230918093855/migrate remove not null constraint fri proof blob url proof compression jobs fri (404.223µs)
+Applied 20230918134637/migrate add picked by column to prover fri related tables (887.58µs)
+Applied 20231009073918/migrate drop-prover jobs fri l1 batch number fkey (780.341µs)
+Applied 20231013085524/migrate boojum-block-commitments (4.090523ms)
+Applied 20231013163109/migrate create snapshots table (1.938224ms)
+Applied 20231018205126/migrate l1 batches boojum fields (746.897µs)
+Applied 20231019125310/migrate storage-refunds (528.183µs)
+Applied 20231024052911/migrate add basic witness input producer jobs table (3.295393ms)
+Applied 20231027074517/migrate add missing index for fri prover tables (2.39524ms)
+Applied 20231102144901/migrate add consensus fields for miniblocks (480.18µs)
+Applied 20231117091340/migrate add-index-for-prover-jobs-fri-queueing (942.876µs)
+Applied 20231128123456/migrate create consensus replica state table (1.809836ms)
+Applied 20231208134254/migrate drop old witness generation related tables (6.217372ms)
+Applied 20231213192041/migrate snapshot-recovery (2.513057ms)
+Applied 20231225083442/migrate add-pub-data-input (722.168µs)
+Applied 20240103125908/migrate remove old prover subsystems (9.152348ms)
+Applied 20240104121833/migrate l1-batch-predicted-circuits (465.492µs)
+   Compiling zksync_dal v0.1.0 (/mnt/md0/work-morty/zksync/zksync-era/core/lib/dal)
+    Finished dev [unoptimized + debuginfo] target(s) in 3.05s
+✔ Setup postgres db done (4255ms)
+
+---------------
+> Clean rocksdb
+✔ Clean rocksdb done (0ms)
+
+---------------
+> Clean backups
+✔ Clean backups done (1ms)
+
+--------------------
+> Building contracts
+yarn run v1.22.19
+$ yarn workspace l1-contracts build
+$ hardhat compile
+Nothing to compile
+Creating Typechain artifacts in directory typechain for target ethers-v5
+Successfully generated Typechain artifacts!
+Done in 6.43s.
+yarn run v1.22.19
+$ yarn workspace l2-contracts build
+$ hardhat compile
+Nothing to compile
+Creating Typechain artifacts in directory typechain for target ethers-v5
+Successfully generated Typechain artifacts!
+Done in 3.77s.
+✔ Building contracts done (10926ms)
+
+----------------------------------
+> Deploying localhost ERC20 tokens
+✔ Deploying localhost ERC20 tokens done (60607ms)
+
+-----------------------
+> Deploying L1 verifier
+yarn run v1.22.19
+$ yarn workspace l1-contracts deploy-no-build --only-verifier
+$ ts-node scripts/deploy.ts --only-verifier
+Using deployer wallet: 0x52312AD6f01657413b2eaE9287f6B9ADaD93D5FE
+Using owner address: 0x52312AD6f01657413b2eaE9287f6B9ADaD93D5FE
+Using gas price: 1.500774003 gwei
+Using nonce: 181
+Deploying Create2 factory
+CONTRACTS_CREATE2_FACTORY_ADDR=0xCfe5954f833f73b7D1F32f9a9Db9E80B0C5Be76f
+Create2 factory deployed, gasUsed: 147745
+Deploying Multicall3
+Multicall3 deployed, gasUsed: 874483
+CONTRACTS_L1_MULTICALL3_ADDR=0x6fa69252113BB5E801EbcB72603F1Bfc3F25adA9
+Deploying Verifier
+Verifier deployed, gasUsed: 3816731
+CONTRACTS_VERIFIER_ADDR=0x242660F27F8D9c5BAc00235fc9aCA4a1aC77B19B
+Done in 19.48s.
+✔ Deploying L1 verifier done (19842ms)
+
+---------------
+> Reloading env
+✔ Reloading env done (0ms)
+
+------------------------------
+> Running server genesis setup
+   Compiling zksync_dal v0.1.0 (/mnt/md0/work-morty/zksync/zksync-era/core/lib/dal)
+   Compiling circuit_definitions v0.1.0 (https://github.com/matter-labs/era-zkevm_test_harness.git?branch=v1.4.0#43aeb53d)
+   Compiling zksync_core v0.1.0 (/mnt/md0/work-morty/zksync/zksync-era/core/lib/zksync_core)
+   Compiling zksync_state v0.1.0 (/mnt/md0/work-morty/zksync/zksync-era/core/lib/state)
+   Compiling zksync_circuit_breaker v0.1.0 (/mnt/md0/work-morty/zksync/zksync-era/core/lib/circuit_breaker)
+   Compiling zkevm_test_harness v1.4.0 (https://github.com/matter-labs/era-zkevm_test_harness.git?branch=v1.4.0#43aeb53d)
+   Compiling multivm v0.1.0 (/mnt/md0/work-morty/zksync/zksync-era/core/lib/multivm)
+   Compiling zksync_commitment_utils v0.1.0 (/mnt/md0/work-morty/zksync/zksync-era/core/lib/commitment_utils)
+   Compiling zksync_server v0.1.0 (/mnt/md0/work-morty/zksync/zksync-era/core/bin/zksync_server)
+    Finished release [optimized] target(s) in 5m 29s
+     Running `target/release/zksync_server --genesis`
+[2m2024-01-19T13:39:59.725072Z[0m [32m INFO[0m [2mzksync_server[0m[2m:[0m No sentry URL was provided
+[2m2024-01-19T13:39:59.732269Z[0m [32m INFO[0m [2mzksync_dal::connection[0m[2m:[0m Created pool with 1 max connections and None statement timeout
+[2m2024-01-19T13:40:00.060645Z[0m [32m INFO[0m [2mzksync_core::genesis[0m[2m:[0m running regenesis
+[2m2024-01-19T13:40:00.088040Z[0m [32m INFO[0m [2mzksync_core::genesis[0m[2m:[0m chain_schema_genesis is complete
+[2m2024-01-19T13:40:00.088068Z[0m [34mDEBUG[0m [2mzksync_core::metadata_calculator::helpers[0m[2m:[0m Loading storage logs data for L1 batch #0
+[2m2024-01-19T13:40:00.088591Z[0m [34mDEBUG[0m [2mzksync_core::metadata_calculator::metrics[0m[2m:[0m Metadata calculator stage `LoadL1BatchHeader` completed in 462.998µs
+[2m2024-01-19T13:40:00.088964Z[0m [34mDEBUG[0m [2mzksync_core::metadata_calculator::metrics[0m[2m:[0m Metadata calculator stage `LoadProtectiveReads` with 0 records completed in 350.699µs
+[2m2024-01-19T13:40:00.090105Z[0m [34mDEBUG[0m [2mzksync_core::metadata_calculator::metrics[0m[2m:[0m Metadata calculator stage `LoadTouchedSlots` with 24 records completed in 1.124829ms
+[2m2024-01-19T13:40:00.090613Z[0m [34mDEBUG[0m [2mzksync_core::metadata_calculator::metrics[0m[2m:[0m Metadata calculator stage `LoadLeafIndices` with 24 records completed in 497.764µs
+[2m2024-01-19T13:40:00.090623Z[0m [34mDEBUG[0m [2mzksync_core::metadata_calculator::helpers[0m[2m:[0m Made touched slots disjoint with protective reads; remaining touched slots: 24
+[2m2024-01-19T13:40:00.090657Z[0m [34mDEBUG[0m [2mzksync_core::metadata_calculator::metrics[0m[2m:[0m Metadata calculator stage `LoadChanges` completed in 2.537748ms
+[2m2024-01-19T13:40:00.090685Z[0m [32m INFO[0m [2mzksync_merkle_tree::domain[0m[2m:[0m Creating Merkle tree for genesis batch with 24 writes
+[2m2024-01-19T13:40:00.096707Z[0m [32m INFO[0m [2mzksync_merkle_tree::domain[0m[2m:[0m Processed genesis batch; root hash is 0x244d…b8dd, 24 leaves in total
+[2m2024-01-19T13:40:00.097377Z[0m [32m INFO[0m [2mzksync_core::genesis[0m[2m:[0m operations_schema_genesis is complete
+CONTRACTS_GENESIS_ROOT=0x244dfe64a28ec2e5b422095f05d3f0ead36ece6c1410da633ae896e0c2cfb8dd
+CONTRACTS_GENESIS_BATCH_COMMITMENT=0x3a789151c6a09e27fd654ab0c143c30e70e53af8e611a85a711942a10b259d2c
+CONTRACTS_GENESIS_ROLLUP_LEAF_INDEX=25
+CHAIN_STATE_KEEPER_BOOTLOADER_HASH=0x01000831ba7021800f5d9103772fcc7463ed7e764a2a3624cacca6b3826172d0
+CHAIN_STATE_KEEPER_DEFAULT_AA_HASH=0x0100055bf7f1bc4237c2be24252fb6737cc235194139e544933c1dbf25c24ee8
+✔ Running server genesis setup done (329539ms)
+
+------------------------
+> Deploying L1 contracts
+yarn run v1.22.19
+$ yarn workspace l1-contracts deploy-no-build
+$ ts-node scripts/deploy.ts
+Using deployer wallet: 0x52312AD6f01657413b2eaE9287f6B9ADaD93D5FE
+Using owner address: 0x52312AD6f01657413b2eaE9287f6B9ADaD93D5FE
+Using gas price: 1.500000007 gwei
+Using nonce: 184
+Deploying Create2 factory
+CONTRACTS_CREATE2_FACTORY_ADDR=0x3c4CE2E9D8b03BbCd568E47465A483EE86893c49
+Create2 factory deployed, gasUsed: 147745
+Deploying Multicall3
+Multicall3 deployed, gasUsed: 874483
+CONTRACTS_L1_MULTICALL3_ADDR=0xfE15a9f3d22C1B9C5471836598F0715724deA172
+Deploying DiamondUpgradeInit1
+DiamondUpgradeInit1 deployed, gasUsed: 2179456
+CONTRACTS_DIAMOND_UPGRADE_INIT_ADDR=0xF46DE273CdFd400cf19c5B1BB0cD279C995781CF
+Deploying DefaultUpgrade
+DefaultUpgrade deployed, gasUsed: 1939013
+CONTRACTS_DEFAULT_UPGRADE_ADDR=0x1CF51cCa663fC21904Fa98a143d42c2436CC0008
+Deploying Governance
+Governance deployed, gasUsed: 1456131
+CONTRACTS_GOVERNANCE_ADDR=0x83894E7Ad78a6a9e40E38Efc7d58763F2A4A56cf
+Deploying MailboxFacet
+Deploying ExecutorFacet
+Deploying AdminFacet
+Deploying GettersFacet
+Deploying DiamondInit
+MailboxFacet deployed, gasUsed: 2131859
+ExecutorFacet deployed, gasUsed: 2381440
+CONTRACTS_MAILBOX_FACET_ADDR=0x9f66BDccC32595c016ED1C9dd12cD101a185e939
+CONTRACTS_EXECUTOR_FACET_ADDR=0x5C368E458cce811A4AA5eDA4E81cBDFaD01818b3
+GettersFacet deployed, gasUsed: 956943
+AdminFacet deployed, gasUsed: 2501939
+CONTRACTS_GETTERS_FACET_ADDR=0x806bE9cf883415d8A5155CE5F3D00ED6e96A9186
+CONTRACTS_ADMIN_FACET_ADDR=0xD9341Aaf08075E729ea5EefB9DA08334Ddf1d2E4
+DiamondInit deployed, gasUsed: 458470
+CONTRACTS_DIAMOND_INIT_ADDR=0x23bfF7835b9F28cA2A58deEB987b82A8F4711E8E
+Deploying DiamondProxy
+DiamondProxy deployed, gasUsed: 2382003
+CONTRACTS_DIAMOND_PROXY_ADDR=0xb4b010Da4bF1D343D3F5C6f5F08ffd30a89eE3D3
+Deploying L1ERC20Bridge
+L1ERC20Bridge deployed, gasUsed: 2479910
+CONTRACTS_L1_ERC20_BRIDGE_IMPL_ADDR=0x29c76B4C4F357B6a347406bF24398E434A98eFdf
+Deploying TransparentUpgradeableProxy
+TransparentUpgradeableProxy deployed, gasUsed: 678817
+CONTRACTS_L1_ERC20_BRIDGE_PROXY_ADDR=0xEb3bEf69F8394EcED8aD737e79ee3c89f29204c7
+Deploying L1WethBridge
+L1WethBridge deployed, gasUsed: 2359592
+CONTRACTS_L1_WETH_BRIDGE_IMPL_ADDR=0xC3d36eAA6e7B39cAED1C5f1f50d858c14313E248
+Deploying TransparentUpgradeableProxy
+TransparentUpgradeableProxy deployed, gasUsed: 678817
+CONTRACTS_L1_WETH_BRIDGE_PROXY_ADDR=0xc31c3E7625fF51477DC87953B0294AF9A7170adE
+Deploying ValidatorTimelock
+ValidatorTimelock deployed, gasUsed: 892031
+CONTRACTS_VALIDATOR_TIMELOCK_ADDR=0x14E13c44D81E46E01897cd3026F1Aa6b90962882
+Done in 74.18s.
+Skip contract verification on localhost
+✔ Deploying L1 contracts done (74570ms)
+
+------------------------
+> Initializing validator
+yarn run v1.22.19
+$ yarn workspace l1-contracts initialize-validator
+$ ts-node scripts/initialize-validator.ts
+Using deployer wallet: 0x52312AD6f01657413b2eaE9287f6B9ADaD93D5FE
+Using gas price: 1.500000007 gwei
+Using nonce: 200
+Transaction sent with hash 0x54f0e4eb3e63c5b527f924d64428dbc6eeb0c4cac7c1440011ec7ea269ac88f9 and nonce 200
+Validator is set, gasUsed: 55021
+Done in 7.58s.
+✔ Initializing validator done (7956ms)
+
+------------------------
+> Deploying L2 contracts
+yarn run v1.22.19
+$ yarn workspace l2-contracts build
+$ hardhat compile
+Nothing to compile
+Creating Typechain artifacts in directory typechain for target ethers-v5
+Successfully generated Typechain artifacts!
+Done in 3.79s.
+yarn run v1.22.19
+$ yarn workspace l1-contracts initialize-bridges
+$ ts-node scripts/initialize-bridges.ts
+Using deployer wallet: 0xde03a0B5963f75f1C8485B355fF6D30f3093BDE7
+Using gas price: 1.500000007 gwei
+Using nonce: 0
+Transaction sent with hash 0x7956ebfae8a28c8a203dab1379c47f0d5fcb26bc67cafabd1eed268f4aa0520b and nonce 0. Waiting for receipt...
+Transaction sent with hash 0x98c7a3b9c554a73112f4c73eeec3bdf01a28e42a8e3cea2f7fd87075694c47e8 and nonce 1. Waiting for receipt...
+ERC20 bridge initialized, gasUsed: 1367836
+CONTRACTS_L2_ERC20_BRIDGE_ADDR=0xAEEC603ca674e1315af3e7427377E4fcCdb1E104
+Done in 9.40s.
+yarn run v1.22.19
+$ yarn workspace l2-contracts deploy-testnet-paymaster
+$ ts-node src/deployTestnetPaymaster.ts
+Using deployer wallet: 0x52312AD6f01657413b2eaE9287f6B9ADaD93D5FE
+CONTRACTS_L2_TESTNET_PAYMASTER_ADDR=0x59067204f2789ffcb6eadb6be6c7cbb7be9fdc7c
+Done in 7.75s.
+yarn run v1.22.19
+$ yarn workspace l2-contracts deploy-l2-weth
+$ ts-node src/deployL2Weth.ts
+Using deployer wallet: 0xde03a0B5963f75f1C8485B355fF6D30f3093BDE7
+Using gas price: 1.500000007 gwei
+Using initial nonce: 2
+WETH implementation transaction sent with hash 0xca5f24976e63aca111ab0ed9322c86dacb1fab3078f00275195a38089d37edf2 and nonce 2. Waiting for receipt...
+WETH proxy transaction sent with hash 0xe854d1b46fa1f5e3153807b4922923283e2fa89921c7d651aa2d0ffa8a4cea16 and nonce 3. Waiting for receipt...
+CONTRACTS_L2_WETH_TOKEN_IMPL_ADDR=0xe6c1a1dd3f61f1fa1eba9c0b6621159697e9f922
+CONTRACTS_L2_WETH_TOKEN_PROXY_ADDR=0xdbb035b2c80bf8b54684fb987bfd11e6dbe50fee
+Done in 9.69s.
+yarn run v1.22.19
+$ yarn workspace l2-contracts deploy-force-deploy-upgrader
+$ ts-node src/deployForceDeployUpgrader.ts
+Using deployer wallet: 0x52312AD6f01657413b2eaE9287f6B9ADaD93D5FE
+CONTRACTS_L2_DEFAULT_UPGRADE_ADDR=0xb6495a79b9a7eadedacb8edd8545d4ae86ba187d
+Done in 4.93s.
+yarn run v1.22.19
+$ yarn workspace l1-contracts initialize-weth-bridges
+$ ts-node scripts/initialize-weth-bridges.ts
+Using deployer wallet: 0xde03a0B5963f75f1C8485B355fF6D30f3093BDE7
+Using gas price: 1.500000007 gwei
+Using deployer nonce: 4
+Transaction sent with hash 0xbbf52d7854eb8c8dbe97fc8357072ef836fc92e2f93ee96e74940042402af43c and nonce 4. Waiting for receipt...
+WETH bridge initialized, gasUsed: 898259
+CONTRACTS_L2_WETH_BRIDGE_ADDR=0xD83F02baa627644Fda85ca47389f1a4df8525364
+Done in 8.17s.
+✔ Deploying L2 contracts done (45943ms)
+
+----------------------------
+> Initializing L2 WETH token
+yarn run v1.22.19
+$ yarn workspace l1-contracts initialize-l2-weth-token instant-call
+$ ts-node scripts/initialize-l2-weth-token.ts instant-call
+Using deployer wallet: 0x52312AD6f01657413b2eaE9287f6B9ADaD93D5FE
+Using gas price: 1.500000007 gwei
+Using deployer nonce: 203
+Transaction sent with hash 0x50e56896592da0fa05f566034c864c871d2c3fb007442f58e04cfd45ce392941 and nonce 203. Waiting for receipt...
+L2 WETH token initialized, gasUsed: 109114
+Done in 7.75s.
+✔ Initializing L2 WETH token done (8118ms)
+
+-------------------------
+> Initializing governance
+yarn run v1.22.19
+$ yarn workspace l1-contracts initialize-governance
+$ ts-node scripts/initialize-governance.ts
+/mnt/md0/work-morty/zksync/zksync-era/bin/zk: line 48: 1170736 Hangup                  node -- $ZKSYNC_HOME/infrastructure/zk/build/index.js "$@"
