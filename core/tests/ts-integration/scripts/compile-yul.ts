@@ -15,10 +15,10 @@ async function compilerLocation(): Promise<string> {
 
     let salt = '';
 
-    if (IS_COMPILER_PRE_RELEASE) {
-        const url = getZksolcUrl('https://github.com/matter-labs/zksolc-prerelease', hre.config.zksolc.version);
-        salt = saltFromUrl(url);
-    }
+    // if (IS_COMPILER_PRE_RELEASE) {
+    //     const url = getZksolcUrl('https://github.com/matter-labs/zksolc-prerelease', hre.config.zksolc.version);
+    //     salt = saltFromUrl(url);
+    // }
 
     return path.join(compilersCache, 'zksolc', `zksolc-v${COMPILER_VERSION}${salt ? '-' : ''}${salt}`);
 }
