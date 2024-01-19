@@ -112,7 +112,7 @@ export async function deployL1(args: any[]) {
     // In the localhost setup scenario we don't have the workspace,
     // so we have to `--cwd` into the required directory.
     const baseCommand = process.env.ZKSYNC_LOCAL_SETUP ? `yarn --cwd /contracts/l1-contracts` : `yarn l1-contracts`;
-
+    console.log("-----------------Morty: process.env.ZKSYNC_LOCAL_SETUP---------------------", ZKSYNC_LOCAL_SETUP)
     await utils.spawn(`${baseCommand} deploy-no-build ${args.join(' ')} | tee deployL1.log`);
     const deployLog = fs.readFileSync('deployL1.log').toString();
     const envVars = [
