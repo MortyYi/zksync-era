@@ -44,8 +44,8 @@ export async function init(initArgs: InitArgs = DEFAULT_ARGS) {
     await announced('Deploying L1 verifier', contract.deployVerifier([`--private-key ${process.env.DEPLOY_PRIVATE_KEY}`]));
     await announced('Reloading env', env.reload());
     await announced('Running server genesis setup', server.genesisFromSources());
-    await announced('Deploying L1 contracts', contract.redeployL1(governorPrivateKeyArgs));
-    await announced('Initializing validator', contract.initializeValidator(governorPrivateKeyArgs));
+    await announced('Deploying L1 contracts', contract.redeployL1([`--private-key ${process.env.DEPLOY_PRIVATE_KEY}`]));
+    await announced('Initializing validator', contract.initializeValidator([`--private-key ${process.env.DEPLOY_PRIVATE_KEY}`]));
     await announced(
         'Deploying L2 contracts',
         contract.deployL2(
