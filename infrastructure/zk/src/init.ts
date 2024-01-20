@@ -169,7 +169,7 @@ export const initCommand = new Command('init')
             skipEnvSetup: cmd.skipEnvSetup,
             governorPrivateKeyArgs: [],
             deployerL2ContractInput: { args: [], includePaymaster: true, includeL2WETH: true },
-            testTokens: { deploy: true, args: [] }
+            testTokens: { deploy: false, args: [] }
         };
         await init(initArgs);
     });
