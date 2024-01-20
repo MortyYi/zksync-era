@@ -49,19 +49,19 @@ export async function init(initArgs: InitArgs = DEFAULT_ARGS) {
     await announced(
         'Deploying L2 contracts',
         contract.deployL2(
-            deployerL2ContractInput.args,
+            [`--private-key ${process.env.DEPLOY_PRIVATE_KEY}`],
             deployerL2ContractInput.includePaymaster,
             deployerL2ContractInput.includeL2WETH
         )
     );
 
     if (deployerL2ContractInput.includeL2WETH) {
-        await announced('Initializing L2 WETH token', contract.initializeWethToken(governorPrivateKeyArgs));
+        await announced('Initializing L2 WETH token', contract.initializeWethToken([`--private-key ${process.env.DEPLOY_PRIVATE_KEY}`]));
     }
     await announced(
         'Initializing governance',
         contract.initializeGovernance([
-            ...governorPrivateKeyArgs,
+            ...[`--private-key ${process.env.DEPLOY_PRIVATE_KEY}`],
             !deployerL2ContractInput.includeL2WETH ? ['--skip-weth-bridge'] : []
         ])
     );
