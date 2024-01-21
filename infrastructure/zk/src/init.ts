@@ -41,27 +41,27 @@ export async function init(initArgs: InitArgs = DEFAULT_ARGS) {
     if (testTokens.deploy) {
         await announced('Deploying localhost ERC20 tokens', run.deployERC20('dev', '', '', '', testTokens.args));
     }
-    await announced('Deploying L1 verifier', contract.deployVerifier([`--private-key ${process.env.DEPLOY_PRIVATE_KEY}`]));
+    await announced('Deploying L1 verifier', contract.deployVerifier([`--private-key ${process.env.DEPLOY_L1_PRIVATE_KEY}`]));
     await announced('Reloading env', env.reload());
     await announced('Running server genesis setup', server.genesisFromSources());
-    await announced('Deploying L1 contracts', contract.redeployL1([`--private-key ${process.env.DEPLOY_PRIVATE_KEY}`]));
-    await announced('Initializing validator', contract.initializeValidator([`--private-key ${process.env.DEPLOY_PRIVATE_KEY}`]));
+    await announced('Deploying L1 contracts', contract.redeployL1([`--private-key ${process.env.DEPLOY_L1_PRIVATE_KEY}`]));
+    await announced('Initializing validator', contract.initializeValidator([`--private-key ${process.env.DEPLOY_L1_PRIVATE_KEY}`]));
     await announced(
         'Deploying L2 contracts',
         contract.deployL2(
-            [`--private-key ${process.env.DEPLOY_PRIVATE_KEY}`],
+            [`--private-key ${process.env.DEPLOY_L2_PRIVATE_KEY}`],
             deployerL2ContractInput.includePaymaster,
             deployerL2ContractInput.includeL2WETH
         )
     );
 
     if (deployerL2ContractInput.includeL2WETH) {
-        await announced('Initializing L2 WETH token', contract.initializeWethToken([`--private-key ${process.env.DEPLOY_PRIVATE_KEY}`]));
+        await announced('Initializing L2 WETH token', contract.initializeWethToken([`--private-key ${process.env.DEPLOY_L1_PRIVATE_KEY}`]));
     }
     await announced(
         'Initializing governance',
         contract.initializeGovernance([
-            ...[`--private-key ${process.env.DEPLOY_PRIVATE_KEY}`],
+            ...[`--private-key ${process.env.DEPLOY_L1_PRIVATE_KEY}`],
             !deployerL2ContractInput.includeL2WETH ? ['--skip-weth-bridge'] : []
         ])
     );
