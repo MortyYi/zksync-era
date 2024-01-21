@@ -61,7 +61,7 @@ export async function init(initArgs: InitArgs = DEFAULT_ARGS) {
     await announced(
         'Initializing governance',
         contract.initializeGovernance([
-            ...[`--private-key ${process.env.DEPLOY_L1_PRIVATE_KEY}`],
+            ...[`--private-key ${process.env.DEPLOY_L1_PRIVATE_KEY}`, `--owner-address ${process.env.OWNER_ADDRESS}`],
             !deployerL2ContractInput.includeL2WETH ? ['--skip-weth-bridge'] : []
         ])
     );
