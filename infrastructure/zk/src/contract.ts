@@ -74,21 +74,18 @@ export async function deployL2(args: any[] = [], includePaymaster?: boolean, inc
 
     // Skip compilation for local setup, since we already copied artifacts into the container.
     await utils.spawn(`${baseCommandL2} build`);
-    console.log("------------------Morty: start deploy l2-------------------")
+
     await utils.spawn(`${baseCommandL1} initialize-bridges ${args.join(' ')} | tee deployL2.log`);
-    console.log("------------------Morty: initialize-bridges-------------------")
+
     if (includePaymaster) {
         await utils.spawn(`${baseCommandL2} deploy-testnet-paymaster ${args.join(' ')} | tee -a deployL2.log`);
-        console.log("------------------Morty: deploy-testnet-paymaster-------------------")
     }
 
     if (includeWETH) {
         await utils.spawn(`${baseCommandL2} deploy-l2-weth ${args.join(' ')} | tee -a deployL2.log`);
-        console.log("------------------Morty: deploy-l2-weth-------------------")
     }
 
     await utils.spawn(`${baseCommandL2} deploy-force-deploy-upgrader ${args.join(' ')} | tee -a deployL2.log`);
-    console.log("------------------Morty: deploy-force-deploy-upgrader-------------------")
 
     const l2DeployLog = fs.readFileSync('deployL2.log').toString();
     const l2DeploymentEnvVars = [
@@ -102,7 +99,6 @@ export async function deployL2(args: any[] = [], includePaymaster?: boolean, inc
 
     if (includeWETH) {
         await utils.spawn(`${baseCommandL1} initialize-weth-bridges ${args.join(' ')} | tee -a deployL1.log`);
-        console.log("------------------Morty: initialize-weth-bridges-------------------")
     }
 
     const l1DeployLog = fs.readFileSync('deployL1.log').toString();
@@ -116,7 +112,7 @@ export async function deployL1(args: any[]) {
     // In the localhost setup scenario we don't have the workspace,
     // so we have to `--cwd` into the required directory.
     const baseCommand = process.env.ZKSYNC_LOCAL_SETUP ? `yarn --cwd /contracts/l1-contracts` : `yarn l1-contracts`;
-    console.log("-----------------Morty: process.env.ZKSYNC_LOCAL_SETUP---------------------", process.env.ZKSYNC_LOCAL_SETUP)
+
     await utils.spawn(`${baseCommand} deploy-no-build ${args.join(' ')} | tee deployL1.log`);
     const deployLog = fs.readFileSync('deployL1.log').toString();
     const envVars = [
