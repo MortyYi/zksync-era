@@ -41,11 +41,11 @@ export async function init(initArgs: InitArgs = DEFAULT_ARGS) {
     if (testTokens.deploy) {
         await announced('Deploying localhost ERC20 tokens', run.deployERC20('dev', '', '', '', testTokens.args));
     }
-    await announced('Deploying L1 verifier', contract.deployVerifier([`--private-key ${process.env.DEPLOY_L1_PRIVATE_KEY}`]));
+    await announced('Deploying L1 verifier', contract.deployVerifier(governorPrivateKeyArgs));
     await announced('Reloading env', env.reload());
     await announced('Running server genesis setup', server.genesisFromSources());
-    await announced('Deploying L1 contracts', contract.redeployL1([`--private-key ${process.env.DEPLOY_L1_PRIVATE_KEY}`]));
-    await announced('Initializing validator', contract.initializeValidator([`--private-key ${process.env.DEPLOY_L1_PRIVATE_KEY}`]));
+    await announced('Deploying L1 contracts', contract.redeployL1(governorPrivateKeyArgs));
+    await announced('Initializing validator', contract.initializeValidator(governorPrivateKeyArgs));
     await announced(
         'Deploying L2 contracts',
         contract.deployL2(
@@ -56,12 +56,13 @@ export async function init(initArgs: InitArgs = DEFAULT_ARGS) {
     );
 
     if (deployerL2ContractInput.includeL2WETH) {
-        await announced('Initializing L2 WETH token', contract.initializeWethToken([`--private-key ${process.env.DEPLOY_L1_PRIVATE_KEY}`]));
+        await announced('Initializing L2 WETH token', contract.initializeWethToken(governorPrivateKeyArgs));
     }
     await announced(
         'Initializing governance',
         contract.initializeGovernance([
-            ...[`--private-key ${process.env.DEPLOY_L1_PRIVATE_KEY}`, `--owner-address ${process.env.OWNER_ADDRESS}`],
+            ...governorPrivateKeyArgs, 
+            [`--owner-address ${process.env.OWNER_ADDRESS}`],
             !deployerL2ContractInput.includeL2WETH ? ['--skip-weth-bridge'] : []
         ])
     );
@@ -169,7 +170,7 @@ export const initCommand = new Command('init')
         const initArgs: InitArgs = {
             skipSubmodulesCheckout: cmd.skipSubmodulesCheckout,
             skipEnvSetup: cmd.skipEnvSetup,
-            governorPrivateKeyArgs: [],
+            governorPrivateKeyArgs: [`--private-key ${process.env.DEPLOY_L1_PRIVATE_KEY}`],
             deployerL2ContractInput: { args: [], includePaymaster: cmd.includePaymaster, includeL2WETH: true },
             testTokens: { deploy: cmd.deployTestToken, args: [] }
         };

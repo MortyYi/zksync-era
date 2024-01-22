@@ -30,9 +30,8 @@ Cargo.lock
 !/infrastructure/zksync-crypto/Cargo.lock
 !/prover/Cargo.lock
 
+/etc/env/*
 !/etc/env/base
-!/etc/env/.init.env
-!/etc/env/dev.env
 !/etc/env/docker.toml
 !/etc/env/ext-node.toml
 !/etc/env/ext-node-docker.toml
