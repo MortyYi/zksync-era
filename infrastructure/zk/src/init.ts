@@ -162,14 +162,16 @@ const DEFAULT_ARGS: InitArgs = {
 export const initCommand = new Command('init')
     .option('--skip-submodules-checkout')
     .option('--skip-env-setup')
+    .option('--include-paymaster-setup')
+    .option('--deploy-test-token')
     .description('perform zksync network initialization for development')
     .action(async (cmd: Command) => {
         const initArgs: InitArgs = {
             skipSubmodulesCheckout: cmd.skipSubmodulesCheckout,
             skipEnvSetup: cmd.skipEnvSetup,
             governorPrivateKeyArgs: [],
-            deployerL2ContractInput: { args: [], includePaymaster: true, includeL2WETH: true },
-            testTokens: { deploy: false, args: [] }
+            deployerL2ContractInput: { args: [], includePaymaster: cmd.includePaymaster, includeL2WETH: true },
+            testTokens: { deploy: cmd.deployTestToken, args: [] }
         };
         await init(initArgs);
     });
